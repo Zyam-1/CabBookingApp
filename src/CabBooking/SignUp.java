@@ -3,6 +3,8 @@ package CabBooking;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.sql.*;
+
 
 public class SignUp extends javax.swing.JFrame implements ActionListener {
 
@@ -16,7 +18,9 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
         frame = new JFrame("Create New Account"); // Window Title
         frame.setBackground(Color.WHITE); // background color of the frame
         frame.setLayout(null);
-
+        
+        //icon
+        
         //Labels
         unameL = new JLabel("Username:"); // Speciies the name of the Label
         unameL.setBounds(40, 20, 100, 30); // This specifies the postion and size of the label on the signup window
@@ -70,6 +74,8 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
         frame.add(backBtn);
         backBtn.addActionListener(this);
 
+        ImageIcon img = new ImageIcon("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\img\\favicon.png");
+        frame.setIconImage(img.getImage());
         frame.getContentPane();
         frame.setVisible(true);
         frame.setSize(550, 340);
@@ -93,6 +99,8 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
                 if (qCheck == 1) {
                     JOptionPane.showMessageDialog(null, "Account Created");
                     this.setVisible(false);
+                    frame.setVisible(false);
+                    new Login();
                 } else {
                     JOptionPane.showMessageDialog(null, "Account Created");
                     this.frame.setVisible(false);
