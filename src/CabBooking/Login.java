@@ -5,6 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
+import javax.servlet.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 
 
 public class Login extends javax.swing.JFrame implements ActionListener {
@@ -75,12 +81,47 @@ public class Login extends javax.swing.JFrame implements ActionListener {
                 String pass = passf.getText();
                 String query = "select * from users where username = '"+uname+"' and password = '"+pass+"'";
                 ResultSet rs = connec.stm.executeQuery(query);
+//                System.out.println(rs);
+                String name;
+            	String phone;
                 if(rs.next()){
+                	
+                	name = rs.getString(2);
+                	phone = rs.getString(4);
+                	System.out.println("Read before Storing");
+                	
+                	System.out.println("Username: " + name);
+                	System.out.println("UserPhone Num: " + phone);
+                	
+                	FileOutputStream output = new FileOutputStream("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\user.properties");
+                	Properties prop = new Properties();
+                    prop.setProperty("name", name);
+                    prop.setProperty("phone", phone);
+                    prop.setProperty("isLoggedIn", "true");
+                    prop.store(output, null);
+                    try (FileInputStream input = new FileInputStream("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\user.properties")) {
+                        prop.load(input);
+
+                        String name1 = prop.getProperty("name");
+                        String phone1 = prop.getProperty("phone");
+                        
+
+                        System.out.println("Read through Property Files");
+                        System.out.println("Name: " + name1);
+                        System.out.println("Phone: " + phone1);
+                        
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    
+                    
                     JOptionPane.showMessageDialog(null, "Logged in Successfully");
                     frame.setVisible(false);
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Wrong Credential. Please Try Again");
+                    JOptionPane.showMessageDialog(null, "Wrong Credentials. Please Try Again");
                     frame.setVisible(false); // just to clear the input fields;
                     frame.setVisible(true); 
 

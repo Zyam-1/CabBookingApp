@@ -5,31 +5,29 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
 
-
 public class SignUp extends javax.swing.JFrame implements ActionListener {
-
+	
     JFrame frame;  // This is the frame of the SignUp Page window
     JLabel unameL, nameL, passL, phoneL, imgL; // These variable are used for the labels in the Sign-up page
     JTextField unameF, nameF, phoneF;// These variable are used for the textField in the signup page
     JPasswordField passF; // This variable is used for password field
-    JButton signBtn, backBtn; // Signup and Back button
+    JButton signBtn, logBtn; // Signup and Back button
 
     SignUp() {
         frame = new JFrame("Create New Account"); // Window Title
         frame.setBackground(Color.WHITE); // background color of the frame
         frame.setLayout(null);
-        
+
         //icon
-        
         //Labels
         unameL = new JLabel("Username:"); // Speciies the name of the Label
         unameL.setBounds(40, 20, 100, 30); // This specifies the postion and size of the label on the signup window
         frame.add(unameL); // Adds the Label to the SignUp page window
-        
+
         nameL = new JLabel("Name:");
         nameL.setBounds(40, 70, 100, 30);
         frame.add(nameL);
-        
+
         passL = new JLabel("Password:");
         passL.setBounds(40, 120, 100, 30);
         frame.add(passL);
@@ -60,19 +58,19 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
         frame.add(imgL);
 
         //button
-        signBtn = new JButton("Sign-In");
+        signBtn = new JButton("Sign-Up");
         signBtn.setBackground(Color.WHITE);
         signBtn.setForeground(Color.BLACK);
         signBtn.setBounds(40, 240, 120, 30);
         frame.add(signBtn);
         signBtn.addActionListener(this);
 
-        backBtn = new JButton("Back");
-        backBtn.setBackground(Color.WHITE);
-        backBtn.setForeground(Color.BLACK);
-        backBtn.setBounds(180, 240, 120, 30);
-        frame.add(backBtn);
-        backBtn.addActionListener(this);
+        logBtn = new JButton("Already Have An Account? Login");
+        logBtn.setBackground(Color.WHITE);
+        logBtn.setForeground(Color.BLACK);
+        logBtn.setBounds(180, 240, 200, 30);
+        frame.add(logBtn);
+        logBtn.addActionListener(this);
 
         ImageIcon img = new ImageIcon("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\img\\favicon.png");
         frame.setIconImage(img.getImage());
@@ -114,15 +112,14 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
             }
 
         }
-        if (e.getSource() == backBtn) {
+        if (e.getSource() == logBtn) {
             this.frame.setVisible(false);
+            new Login();
         } // This block will execute if the backBtn is clicked
 
     }
-    
+
     public static void main(String[] args) {
         new SignUp();
     }
 }
- 
-
