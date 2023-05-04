@@ -56,9 +56,8 @@ public class Home extends JFrame{
            add(panel);
 	   add(imgl);
            imgl.setBounds(0, 0, 1366, 700);
-	   
-	   
-	   
+           ImageIcon icon = new ImageIcon("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\img\\favicon.png");
+           setIconImage(icon.getImage());
 	   
    }
    
