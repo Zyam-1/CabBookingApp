@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
-import javax.servlet.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -95,11 +94,11 @@ public class Login extends javax.swing.JFrame implements ActionListener {
                 	
                 	FileOutputStream output = new FileOutputStream("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\user.properties");
                 	Properties prop = new Properties();
-                    prop.setProperty("name", name);
-                    prop.setProperty("phone", phone);
-                    prop.setProperty("isLoggedIn", "true");
-                    prop.store(output, null);
-                    try (FileInputStream input = new FileInputStream("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\user.properties")) {
+                        prop.setProperty("name", name);
+                        prop.setProperty("phone", phone);
+                        prop.setProperty("isLoggedIn", "true");
+                        prop.store(output, null);
+                        try (FileInputStream input = new FileInputStream("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\user.properties")) {
                         prop.load(input);
 
                         String name1 = prop.getProperty("name");
@@ -126,8 +125,8 @@ public class Login extends javax.swing.JFrame implements ActionListener {
                     frame.setVisible(true); 
 
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
         }
