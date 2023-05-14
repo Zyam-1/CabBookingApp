@@ -10,7 +10,7 @@ public class ConnectionClass {
     ConnectionClass() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3300/cabdb", "root", "fael259f");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:8080/cabdb", "root", "fael259f");
             stm = con.createStatement(); //This is used for Query buidling
         } catch (Exception ex) {
             ex.printStackTrace();

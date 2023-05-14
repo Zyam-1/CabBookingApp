@@ -19,6 +19,8 @@ public class Login extends javax.swing.JFrame implements ActionListener {
     JButton logBtn, signBtn;
     JLabel unamel, passl, title;
     
+    //Intentions do no matter, only consequences matter.
+    
     Login(){
         frame = new JFrame("Login");
         frame.setBackground(Color.WHITE);
@@ -108,15 +110,16 @@ public class Login extends javax.swing.JFrame implements ActionListener {
                         System.out.println("Read through Property Files");
                         System.out.println("Name: " + name1);
                         System.out.println("Phone: " + phone1);
+                        frame.setVisible(false);
+                        new Home();
                         
-
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
 
                     
                     
-                    JOptionPane.showMessageDialog(null, "Logged in Successfully");
+//                    JOptionPane.showMessageDialog(null, "Logged in Successfully");
                     frame.setVisible(false);
                 }
                 else {
