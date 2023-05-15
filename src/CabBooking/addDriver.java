@@ -3,7 +3,9 @@ package CabBooking;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.FileOutputStream;
 import java.sql.*;
+import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,6 +75,7 @@ public class addDriver extends JFrame implements ActionListener {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
         if (action.equals("Add Driver")) {
@@ -83,74 +86,62 @@ public class addDriver extends JFrame implements ActionListener {
             String cnic = cnicField.getText();
             String address = pAddField.getText();
 
+            // code to generate email
+            char[] chars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+            StringBuilder sb = new StringBuilder();
+            Random rand = new Random();
+            int length = 6;
+
+            for (int i = 0; i < length; i++) {
+                int randomIndex = rand.nextInt(chars.length);
+                char randomChar = chars[randomIndex];
+                sb.append(randomChar);
+            }
+            String randomEmail = sb.toString();
+            String email = randomEmail + "@gorider.com";
+
+            // coede to generate password
+            char[] chars1 = {'g', 'i', 'a', 'e', 'q', '1', '^', '>', '<', '|', 'k', 'l', 'm', ']', 'o', '=', 'q', 'r', '/', 't', '1', 'v', 'w', '0', '*', '2'};
+            StringBuilder sb1 = new StringBuilder();
+            Random rand1 = new Random();
+            int size = 8;
+
+            for (int i = 0; i < size; i++) {
+                int randomIndex = rand1.nextInt(chars1.length);
+                char randomChar = chars1[randomIndex];
+                sb1.append(randomChar);
+            }
+            String password = sb1.toString();
+            // You need to check if the same data exists in the and then also get email and pass from db and show it the user. 
+
             try {
-                ConnectionClass conn = new ConnectionClass();
-                String auth = "SELECT * FROM registered_drivers where cnic = '" + cnic + "' OR plate = '" + plate + "' ";
-                ResultSet result = conn.stm.executeQuery(auth);
-                if (result.next()) {
-                    JOptionPane.showMessageDialog(null, "User with similar credentials exists. Please try again");
-                } else {
-
-                    try {
-                        ConnectionClass link = new ConnectionClass();
-                        String q = "INSERT INTO registered_drivers VALUES('" + name + "', '" + vehicle + "', '" + plate + "', '" + cnic + "', '" + address + "' )"; // This is the mySQL query to store the values. Note: The query is not executed here
-                        int qCheck = link.stm.executeUpdate(q); // The query q is executed here
-                        if (qCheck == 1) {
-
-                            // random word generator
-                            char[] chars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-                            StringBuilder sb = new StringBuilder();
-                            Random rand = new Random();
-                            int length = 6;
-
-                            for (int i = 0; i < length; i++) {
-                                int randomIndex = rand.nextInt(chars.length);
-                                char randomChar = chars[randomIndex];
-                                sb.append(randomChar);
-                            }
-                            String randomEmail = sb.toString();
-                            String email = randomEmail + "@gorider.com";
-
-                            char[] chars1 = {'g', 'i', 'a', 'e', 'q', '1', '^', '>', '<', '|', 'k', 'l', 'm', ']', 'o', '=', 'q', 'r', '/', 't', '1', 'v', 'w', '0', '*', '2'};
-                            StringBuilder sb1 = new StringBuilder();
-                            Random rand1 = new Random();
-                            int size = 8;
-
-                            for (int i = 0; i < size; i++) {
-                                int randomIndex = rand1.nextInt(chars1.length);
-                                char randomChar = chars1[randomIndex];
-                                sb1.append(randomChar);
-                            }
-                            String password = sb1.toString();
-
-                            ConnectionClass conn_hq = new ConnectionClass();
-                            String q1 = "INSERT INTO driver_creds VALUES('" + email + "', '" + password + "')"; // This is the mySQL query to store the values. Note: The query is not executed here
-                            int qCheck1 = conn_hq.stm.executeUpdate(q1);
-                            if (qCheck1 == 1) {
-                                String q2 = "Select * from driver_creds where email = '" + email + "'";
-                                ResultSet rs = conn_hq.stm.executeQuery(q2);
-                                if (rs.next()) {
-                                    JOptionPane.showMessageDialog(null, "Email: '" + rs.getString(1) + "' \n Password: '" + rs.getString(2) + "' ");
-                                    setVisible(false);
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Account Not Created");
-                                setVisible(false);
-                                setVisible(true);
-                            }
-                        }
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-
-                    }
+                ConnectionClass link = new ConnectionClass();
+                String checkQuery = "Select * from registered_drivers where plate = '"+ plate +"' OR cnic = '"+ cnic + "'";
+                ResultSet rs = link.stm.executeQuery(checkQuery);
+                if(rs.next()){
+                    JOptionPane.showMessageDialog(null, "Driver Already Exists. Try again");
 
                 }
+                else {
+                String q = "INSERT INTO registered_drivers VALUES('" + name + "', '" + vehicle + "', '" + plate + "', '" + cnic + "', '" + address + "', '" + email + "', '" + password + "' )"; // This is the mySQL query to store the values. Note: The query is not executed here
+                int qCheck = link.stm.executeUpdate(q); // The query q is executed here
+                if (qCheck == 1) {
+                    String getQuery = "Select email, password from registered_drivers where plate = '" + plate + "' ";
+                    ResultSet driverInfo = link.stm.executeQuery(getQuery);
+                    if(driverInfo.next()){
+                        String driverEmail = driverInfo.getString(1);
+                        String driverPass = driverInfo.getString(2);
+                        JOptionPane.showMessageDialog(null, "Driver Registered Successfully\n Email: '"+ driverEmail +"' \n Password: '"+ driverPass +"' ");
+                    }
+                    
+                    setVisible(false);
 
-            } catch (SQLException ex) {
-                Logger.getLogger(addDriver.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
             }
-
 //           
         }
     }
