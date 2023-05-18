@@ -3,12 +3,8 @@ package CabBooking;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.FileOutputStream;
 import java.sql.*;
-import java.util.Properties;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class addDriver extends JFrame implements ActionListener {
 
@@ -64,6 +60,9 @@ public class addDriver extends JFrame implements ActionListener {
         panel.add(pAddL);
         panel.add(pAddField);
 
+        ImageIcon icon = new ImageIcon("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\img\\favicon.png");
+        setIconImage(icon.getImage());
+        
         JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayout(1, 1, 10, 10));
         panel2.add(addDriverBtn);
