@@ -133,7 +133,7 @@ public class addDriver extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Driver Registered Successfully\n Email: '"+ driverEmail +"' \n Password: '"+ driverPass +"' ");
                     }
                     
-                    setVisible(false);
+                    
 
                 }
                 }
