@@ -26,6 +26,9 @@ public class Login extends javax.swing.JFrame implements ActionListener {
         frame.setBackground(Color.WHITE);
         frame.setLayout(null);
         
+        //parent newparent
+        //newparent.show()
+        
         title =  new JLabel("Login");
         title.setBounds(160, 30, 100, 50);
         title.setFont(new Font("Ariel", Font.BOLD, 30));
@@ -64,9 +67,10 @@ public class Login extends javax.swing.JFrame implements ActionListener {
         
         ImageIcon icon = new ImageIcon("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\img\\favicon.png");
         frame.setIconImage(icon.getImage());
+        
 
         frame.setVisible(true);
-        frame.setSize(400,300);
+        frame.setSize(500,300);
         frame.setLocation(400,300);
     }
 
@@ -89,33 +93,35 @@ public class Login extends javax.swing.JFrame implements ActionListener {
                 	
                 	name = rs.getString(2);
                 	phone = rs.getString(4);
-                	System.out.println("Read before Storing");
+//                	System.out.println("Read before Storing");
                 	
-                	System.out.println("Username: " + name);
-                	System.out.println("UserPhone Num: " + phone);
+//                	System.out.println("Username: " + name);
+//                	System.out.println("UserPhone Num: " + phone);
+
                 	
                 	FileOutputStream output = new FileOutputStream("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\user.properties");
                 	Properties prop = new Properties();
                         prop.setProperty("name", name);
                         prop.setProperty("phone", phone);
-                        prop.setProperty("isLoggedIn", "true");
+                        prop.setProperty("isLoggedIn?", "true");
                         prop.store(output, null);
-                        try (FileInputStream input = new FileInputStream("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\user.properties")) {
-                        prop.load(input);
-
-                        String name1 = prop.getProperty("name");
-                        String phone1 = prop.getProperty("phone");
-                        
-
-                        System.out.println("Read through Property Files");
-                        System.out.println("Name: " + name1);
-                        System.out.println("Phone: " + phone1);
                         frame.setVisible(false);
                         new Home();
-                        
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+//                        try (FileInputStream input = new FileInputStream("C:\\Users\\hp\\Desktop\\CabBookingApp\\src\\CabBooking\\user.properties")) {
+//                        prop.load(input);
+//
+//                        String name1 = prop.getProperty("name");
+//                        String phone1 = prop.getProperty("phone");
+//                        
+//
+//                        System.out.println("Read through Property Files");
+//                        System.out.println("Name: " + name1);
+//                        System.out.println("Phone: " + phone1);
+//                        
+//                        
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    }
 
                     
                     
@@ -137,6 +143,11 @@ public class Login extends javax.swing.JFrame implements ActionListener {
     } 
 
     public static void main(String[] args) {
-        new Login();
+        new Login();//System.out.println("hello");
     }
 }
+
+
+//
+
+
